@@ -1,0 +1,65 @@
+# The Webhooks ID and token can be found in the URL.
+# https://discord.com/api/webhooks/12345678910/T0kEn0fw3Bh00K
+#                                  ^^^^^^^^^^  ^^^^^^^^^^^^
+#                                  Webhook ID  Webhook Token
+webhook-id: ''
+webhook-token: ''
+
+report-webhook-id: ''
+report-webhook-token: ''
+
+# Offence log formatting
+format:
+  title: '{type} report'
+  description: 'Do not do these crimes!'
+  fields:
+    field1:
+      name: 'Punished:'
+      value: '{victim}'
+      inline: false
+    field2:
+      name: 'Executed by:'
+      value: '{executor}'
+      inline: false
+    field3:
+      name: 'Duration:'
+      value: '{duration}'
+      inline: false
+    field4:
+      name: 'Reason:'
+      value: '{reason}'
+      inline: false
+  footer: 'my.server.ip'
+  ban-color: '#ffffff'
+  ipban-color: '#ffffff'
+  warn-color: '#ffffff'
+  kick-color: '#ffffff'
+  mute-color: '#ffffff'
+  jail-color: '#ffffff'
+  display-date: true
+
+# Staff chat formatting
+staff:
+  prefix: "@"
+  format: "&d[STAFFCHAT] {player} &8>> &d{message}"
+  disabled-servers:
+    - sv
+    - prison
+
+# You can use {player} to represent the player that reported, {target} to represent the reported player, {reason} to represent the reason, and {server} to represent the server
+report:
+  success: '&aYou have successfully reported &6{target}'
+  usage: '&cUsage is: /report {player} {reason}'
+  staff: '&c{player} has reported {target} for {reason} in {server}'
+  cooldown: '&cYou have to wait to use this command!'
+  discord:
+    title: '{type} report'
+    description: 'Do not do these crimes!'
+    fields:
+      field1:
+        name: 'Punished:'
+        value: '{victim}'
+        inline: false
+    footer: 'my.server.ip'
+    color: '#ffffff'
+    display-date: true

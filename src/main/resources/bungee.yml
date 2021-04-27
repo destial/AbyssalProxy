@@ -1,0 +1,6 @@
+name: AbyssalProxy
+version: ${project.version}
+main: ml.abyssal.abyssalproxy.AbyssalProxy
+description: Abyssal Proxy
+depends:
+  - LiteBans
