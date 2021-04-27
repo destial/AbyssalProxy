@@ -1,0 +1,57 @@
+package ml.abyssal.abyssalproxy.commands;
+
+import ml.abyssal.abyssalproxy.AbyssalProxy;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.TabExecutor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReportBanCommand extends Command implements TabExecutor {
+    public ReportBanCommand(String name) {
+        super(name);
+    }
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+        if (!(sender instanceof ProxiedPlayer)) return;
+
+        ProxiedPlayer player = (ProxiedPlayer) sender;
+        if (!player.hasPermission("abyssal.punish")) return;
+
+        if (args.length < 1) {
+            player.sendMessage(TextComponent.fromLegacyText(
+                    ChatColor.translateAlternateColorCodes('&',
+                            AbyssalProxy.getInstance().getReportManager().getBanUsage())));
+            return;
+        }
+
+        String targetName = args[0];
+        ProxiedPlayer target = AbyssalProxy.getInstance().getProxy().getPlayer(targetName);
+        AbyssalProxy.getInstance().getReportManager().add(target);
+
+        player.sendMessage(TextComponent.fromLegacyText(
+                ChatColor.translateAlternateColorCodes('&',
+                        AbyssalProxy.getInstance().getReportManager().getUserBanned().replace("{player}", target.getName()))));
+        return;
+    }
+
+    @Override
+    public Iterable<String> onTabComplete(CommandSender sender, String[] args) {
+        if (!(sender instanceof ProxiedPlayer)) return new ArrayList<>();
+
+        ProxiedPlayer player = (ProxiedPlayer) sender;
+        if (!player.hasPermission("abyssal.punish")) return new ArrayList<>();
+
+        List<String> list = new ArrayList<>();
+        for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
+            list.add(p.getName());
+        }
+        return list;
+    }
+}

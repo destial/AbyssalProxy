@@ -1,0 +1,16 @@
+report-banned:
+  - 'Notch'
+
+banned-message: "&c&lYou have been report-banned and unable to make any ingame reports! Please use our discord ticketing system to open a report!"
+user-banned: "&c{player} has been report-banned!"
+user-unbanned: "&c{player} has been report-unbanned!"
+
+ban-usage: "&cUsage: /reportban <player>"
+unban-usage: "&cUsage: /reportunban <player>"
+
+default-report-reasons:
+  - "Hacking"
+  - "Griefing"
+  - "Threatening"
+  - "Advertising"
+  - "Others"
