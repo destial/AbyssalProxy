@@ -67,7 +67,7 @@ public class ReportCommand extends Command implements TabExecutor {
 
         ReportEvent.reporters.add(player.getUniqueId());
         UUID uuid = player.getUniqueId();
-        ProxyServer.getInstance().getScheduler().schedule(AbyssalProxy.getInstance(), () -> ReportEvent.reporters.remove(uuid), 0, 3, TimeUnit.MINUTES);
+        ProxyServer.getInstance().getScheduler().schedule(AbyssalProxy.getInstance(), () -> ReportEvent.reporters.remove(uuid), 3, TimeUnit.MINUTES);
     }
 
     @Override
