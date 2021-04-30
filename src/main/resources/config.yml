@@ -45,6 +45,11 @@ staff:
   disabled-servers:
     - sv
     - prison
+  discord-token: ''
+  discord-staff-channel-id: ''
+  discord-guild-id: ''
+  discord-to-mc-format: '&b(D) &d{player} &8>> &d{message}'
+  mc-to-discord-format: '**{player}** > {message}'
 
 # You can use {player} to represent the player that reported, {target} to represent the reported player, {reason} to represent the reason, and {server} to represent the server
 report:

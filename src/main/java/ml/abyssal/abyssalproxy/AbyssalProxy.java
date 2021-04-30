@@ -8,6 +8,7 @@ import ml.abyssal.abyssalproxy.commands.ReportCommand;
 import ml.abyssal.abyssalproxy.commands.ReportUnbanCommand;
 import ml.abyssal.abyssalproxy.listener.*;
 import ml.abyssal.abyssalproxy.managers.ConfigManager;
+import ml.abyssal.abyssalproxy.managers.DiscordManager;
 import ml.abyssal.abyssalproxy.managers.ReportManager;
 import ml.abyssal.abyssalproxy.managers.WebhookManager;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -22,6 +23,7 @@ public final class AbyssalProxy extends Plugin {
     private WebhookManager webhookManager;
     private ConfigManager configManager;
     private ReportManager reportManager;
+    private DiscordManager discordManager;
     public static final String CHANNEL = "abyssal:proxy";
 
     @Override
@@ -32,6 +34,7 @@ public final class AbyssalProxy extends Plugin {
         reload();
         registerCommands();
         webhookManager = new WebhookManager();
+        discordManager = new DiscordManager();
 
         getLogger().info("Enabling Abyssal Proxy " + getVersion());
     }
@@ -39,6 +42,7 @@ public final class AbyssalProxy extends Plugin {
     @Override
     public void onDisable() {
         getProxy().unregisterChannel(CHANNEL);
+        DiscordManager.getJDA().shutdown();
         unregisterListeners();
         unregisterCommands();
         getLogger().info("Disabling Abyssal Proxy " + getVersion());
@@ -121,6 +125,10 @@ public final class AbyssalProxy extends Plugin {
 
     public ReportManager getReportManager() {
         return reportManager;
+    }
+
+    public DiscordManager getDiscordManager() {
+        return discordManager;
     }
 
     public String getVersion() {

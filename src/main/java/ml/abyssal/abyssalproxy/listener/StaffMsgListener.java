@@ -31,17 +31,23 @@ public class StaffMsgListener implements Listener {
         }
 
         String message = e.getMessage().substring(AbyssalProxy.getInstance().getConfigManager().getStaffPrefix().length());
-        StaffMsgEvent event = ProxyServer.getInstance().getPluginManager().callEvent(new StaffMsgEvent(sender, message));
-        if (event.isCancelled()) return;
-
         String format = AbyssalProxy.getInstance().getConfigManager().getStaffFormat();
-        format = format.replace("{player}", event.getStaffName()).replace("{message}", event.getMessage());
+        format = format.replace("{player}", sender.getName()).replace("{message}", message);
+        StaffMsgEvent event = new StaffMsgEvent(sender, message, format);
+        ProxyServer.getInstance().getPluginManager().callEvent(event);
+    }
+
+    @EventHandler
+    public void onStaffMsg(StaffMsgEvent e) {
         for (ProxiedPlayer player : AbyssalProxy.getInstance().getProxy().getPlayers()) {
             if (player.hasPermission("abyssal.staff")) {
                 if (AbyssalProxy.getInstance().getConfigManager().isDisabledServer(player.getServer().getInfo().getName())) continue;
 
-                player.sendMessage(TextComponent.fromLegacyText(format));
+                player.sendMessage(TextComponent.fromLegacyText(e.getFormat()));
             }
+        }
+        if (!e.isDiscord()) {
+            AbyssalProxy.getInstance().getDiscordManager().sendToDiscord(e.getIngamePlayer(), e.getMessage());
         }
     }
 }
