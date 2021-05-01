@@ -1,7 +1,7 @@
 package ml.abyssal.abyssalproxy.commands;
 
 import ml.abyssal.abyssalproxy.AbyssalProxy;
-import net.md_5.bungee.api.ChatColor;
+import ml.abyssal.abyssalproxy.utils.Parser;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -25,8 +25,7 @@ public class ReportUnbanCommand extends Command implements TabExecutor {
 
         if (args.length < 1) {
             player.sendMessage(TextComponent.fromLegacyText(
-                    ChatColor.translateAlternateColorCodes('&',
-                            AbyssalProxy.getInstance().getReportManager().getUnbanUsage())));
+                    Parser.color(AbyssalProxy.getInstance().getReportManager().getUnbanUsage())));
             return;
         }
 
@@ -35,8 +34,7 @@ public class ReportUnbanCommand extends Command implements TabExecutor {
         AbyssalProxy.getInstance().getReportManager().remove(target.getName());
 
         player.sendMessage(TextComponent.fromLegacyText(
-                ChatColor.translateAlternateColorCodes('&',
-                        AbyssalProxy.getInstance().getReportManager().getUserUnbanned().replace("{player}", target.getName()))));
+                Parser.color(AbyssalProxy.getInstance().getReportManager().getUserUnbanned().replace("{player}", target.getName()))));
         return;
     }
 

@@ -2,7 +2,7 @@ package ml.abyssal.abyssalproxy.listener;
 
 import ml.abyssal.abyssalproxy.AbyssalProxy;
 import ml.abyssal.abyssalproxy.events.StaffMsgEvent;
-import net.md_5.bungee.api.ChatColor;
+import ml.abyssal.abyssalproxy.utils.Parser;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -25,8 +25,8 @@ public class StaffMsgListener implements Listener {
 
         e.setCancelled(true);
         if (AbyssalProxy.getInstance().getConfigManager().isDisabledServer(sender.getServer().getInfo().getName())) {
-            sender.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&',
-                    "&cThis server currently has staff-chats disabled. Contact an administrator to enable it!")));
+            sender.sendMessage(TextComponent.fromLegacyText(
+                    Parser.color("&cThis server currently has staff-chats disabled. Contact an administrator to enable it!")));
             return;
         }
 

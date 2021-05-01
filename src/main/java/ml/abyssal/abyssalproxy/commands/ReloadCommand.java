@@ -1,7 +1,7 @@
 package ml.abyssal.abyssalproxy.commands;
 
 import ml.abyssal.abyssalproxy.AbyssalProxy;
-import net.md_5.bungee.api.ChatColor;
+import ml.abyssal.abyssalproxy.utils.Parser;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -17,9 +17,7 @@ public class ReloadCommand extends Command {
         if (!(sender instanceof ProxiedPlayer)) {
             AbyssalProxy.getInstance().reload();
             sender.sendMessage(TextComponent.fromLegacyText(
-                    ChatColor.translateAlternateColorCodes(
-                            '&',
-                            "&aReloaded &5Abyssal Proxy")));
+                    Parser.color("&aReloaded &5Abyssal Proxy")));
             return;
         }
         ProxiedPlayer player = (ProxiedPlayer) sender;
@@ -29,8 +27,6 @@ public class ReloadCommand extends Command {
         AbyssalProxy.getInstance().reload();
         player.sendMessage(
             TextComponent.fromLegacyText(
-                ChatColor.translateAlternateColorCodes(
-                    '&',
-                    "&aReloaded &5Abyssal Proxy")));
+                    Parser.color("&aReloaded &5Abyssal Proxy")));
     }
 }

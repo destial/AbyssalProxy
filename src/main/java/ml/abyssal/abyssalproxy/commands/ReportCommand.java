@@ -3,7 +3,6 @@ package ml.abyssal.abyssalproxy.commands;
 import ml.abyssal.abyssalproxy.AbyssalProxy;
 import ml.abyssal.abyssalproxy.events.ReportEvent;
 import ml.abyssal.abyssalproxy.utils.Parser;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -34,16 +33,12 @@ public class ReportCommand extends Command implements TabExecutor {
         }
 
         if (ReportEvent.reporters.contains(player.getUniqueId())) {
-            player.sendMessage(TextComponent.fromLegacyText(
-                    ChatColor.translateAlternateColorCodes('&',
-                    AbyssalProxy.getInstance().getConfigManager().getReportCooldown())));
+            player.sendMessage(TextComponent.fromLegacyText(AbyssalProxy.getInstance().getConfigManager().getReportCooldown()));
             return;
         }
 
         if (args.length < 2) {
-            player.sendMessage(TextComponent.fromLegacyText(
-                    ChatColor.translateAlternateColorCodes('&',
-                    AbyssalProxy.getInstance().getConfigManager().getReportUsage())));
+            player.sendMessage(TextComponent.fromLegacyText(AbyssalProxy.getInstance().getConfigManager().getReportUsage()));
             return;
         }
 
@@ -51,18 +46,15 @@ public class ReportCommand extends Command implements TabExecutor {
         ProxiedPlayer target = AbyssalProxy.getInstance().getProxy().getPlayer(targetName);
 
         if (target == null) {
-            player.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&cPlayer not found!")));
-            player.sendMessage(TextComponent.fromLegacyText(
-                    ChatColor.translateAlternateColorCodes('&',
-                            AbyssalProxy.getInstance().getConfigManager().getReportUsage())));
+            player.sendMessage(TextComponent.fromLegacyText(Parser.color("&cPlayer not found!")));
+            player.sendMessage(TextComponent.fromLegacyText(AbyssalProxy.getInstance().getConfigManager().getReportUsage()));
             return;
         }
         String reason = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 
         ReportEvent reportEvent = new ReportEvent(player, target, reason);
         player.sendMessage(TextComponent.fromLegacyText(
-                ChatColor.translateAlternateColorCodes('&',
-                        Parser.report(reportEvent, AbyssalProxy.getInstance().getConfigManager().getReportSuccess()))));
+                Parser.report(reportEvent, AbyssalProxy.getInstance().getConfigManager().getReportSuccess())));
         AbyssalProxy.getInstance().getProxy().getPluginManager().callEvent(reportEvent);
 
         ReportEvent.reporters.add(player.getUniqueId());

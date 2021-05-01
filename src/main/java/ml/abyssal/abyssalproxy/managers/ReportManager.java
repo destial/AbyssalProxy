@@ -1,7 +1,7 @@
 package ml.abyssal.abyssalproxy.managers;
 
 import ml.abyssal.abyssalproxy.AbyssalProxy;
-import net.md_5.bungee.api.ChatColor;
+import ml.abyssal.abyssalproxy.utils.Parser;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -27,11 +27,11 @@ public class ReportManager {
         List<String> banned = config.getStringList("report-banned");
         reportBanned.addAll(banned);
 
-        bannedMessage = ChatColor.translateAlternateColorCodes('&', config.getString("banned-message"));
-        userBanned = ChatColor.translateAlternateColorCodes('&', config.getString("user-banned"));
-        userUnbanned = ChatColor.translateAlternateColorCodes('&', config.getString("user-unbanned"));
-        banUsage = ChatColor.translateAlternateColorCodes('&', config.getString("ban-usage"));
-        unbanUsage = ChatColor.translateAlternateColorCodes('&', config.getString("unban-usage"));
+        bannedMessage = Parser.color(config.getString("banned-message"));
+        userBanned = Parser.color(config.getString("user-banned"));
+        userUnbanned = Parser.color(config.getString("user-unbanned"));
+        banUsage = Parser.color(config.getString("ban-usage"));
+        unbanUsage = Parser.color(config.getString("unban-usage"));
 
         defaultReasons = config.getStringList("default-report-reasons");
 

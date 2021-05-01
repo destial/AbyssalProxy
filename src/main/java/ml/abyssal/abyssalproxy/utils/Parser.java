@@ -5,6 +5,7 @@ import ml.abyssal.abyssalproxy.events.JailEvent;
 import ml.abyssal.abyssalproxy.events.Punishment;
 import ml.abyssal.abyssalproxy.events.ReportEvent;
 import ml.abyssal.abyssalproxy.types.PunishmentType;
+import net.md_5.bungee.api.ChatColor;
 
 import java.awt.*;
 
@@ -44,7 +45,7 @@ public class Parser {
         p = p.replace("{duration}", punishment.getDuration());
         p = p.replace("{reason}", punishment.getReason());
         p = p.replace("{total}", String.valueOf(total));
-        return p;
+        return Parser.color(p);
     }
 
     public static Color punishmentColor(PunishmentType type) {
@@ -72,7 +73,7 @@ public class Parser {
         p = p.replace("{duration}", e.getTime());
         p = p.replace("{reason}", e.getReason());
         p = p.replace("{total}", "");
-        return p;
+        return Parser.color(p);
     }
 
     public static String report(ReportEvent e, String line) {
@@ -81,7 +82,7 @@ public class Parser {
         p = p.replace("{target}", e.getTarget().getName());
         p = p.replace("{reason}", e.getReason());
         p = p.replace("{server}", e.getServer().getName());
-        return p;
+        return Parser.color(p);
     }
 
     public static int getDecimal(String hex){
@@ -94,5 +95,13 @@ public class Parser {
             val = 16*val + d;
         }
         return val;
+    }
+
+    public static String color(String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    public static String clean(String message) {
+        return ChatColor.stripColor(message);
     }
 }

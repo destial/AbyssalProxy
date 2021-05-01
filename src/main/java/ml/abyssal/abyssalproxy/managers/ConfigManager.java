@@ -2,7 +2,6 @@ package ml.abyssal.abyssalproxy.managers;
 
 import ml.abyssal.abyssalproxy.AbyssalProxy;
 import ml.abyssal.abyssalproxy.utils.Parser;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.config.Configuration;
 
@@ -52,7 +51,7 @@ public class ConfigManager {
 
         disabledServers = new ArrayList<>();
         for (String server : config.getStringList("staff.disabled-servers")) {
-            ServerInfo s = AbyssalProxy.getInstance().getProxy().getServers().get(server);
+            ServerInfo s = AbyssalProxy.getInstance().getProxy().getServersCopy().get(server);
             if (s != null) disabledServers.add(s);
         }
 
@@ -69,12 +68,12 @@ public class ConfigManager {
             fields.add(field);
         }
 
-        reportUsage = config.getString("report.usage");
-        reportSuccess = config.getString("report.success");
-        reportStaff = config.getString("report.staff");
+        reportUsage = Parser.color(config.getString("report.usage"));
+        reportSuccess = Parser.color(config.getString("report.success"));
+        reportStaff = Parser.color(config.getString("report.staff"));
         reportId = config.getString("report-webhook-id");
         reportToken = config.getString("report-webhook-token");
-        reportCooldown = config.getString("report.cooldown");
+        reportCooldown = Parser.color(config.getString("report.cooldown"));
         reportDiscordTitle = config.getString("report.discord.title");
         reportDiscordDescription = config.getString("report.discord.description");
         reportDiscordDisplayDate = config.getBoolean("report.discord.display-date");
@@ -256,7 +255,7 @@ public class ConfigManager {
     }
 
     public String getStaffFormat() {
-        return ChatColor.translateAlternateColorCodes('&', staffFormat);
+        return Parser.color(staffFormat);
     }
 
     public Configuration getConfig() {

@@ -10,6 +10,7 @@ public class LiteBansListener extends Events.Listener {
 
     @Override
     public void entryAdded(Entry entry) {
+        if (entry.isSilent()) return;
         switch (entry.getType()) {
             case "ban":
                 if (entry.isIpban()) {

@@ -2,6 +2,7 @@ package ml.abyssal.abyssalproxy.managers;
 
 import ml.abyssal.abyssalproxy.AbyssalProxy;
 import ml.abyssal.abyssalproxy.events.StaffMsgEvent;
+import ml.abyssal.abyssalproxy.utils.Parser;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.MessageBuilder;
@@ -12,7 +13,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.config.Configuration;
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +31,7 @@ public class DiscordManager implements EventListener {
         TOKEN = config.getString("staff.discord-token", "");
         STAFF_CHANNEL_ID = config.getString("staff.discord-staff-channel-id", "");
         GUILD_ID = config.getString("staff.discord-guild-id", "");
-        discordToMcFormat = config.getString("staff.discord-to-mc-format", "");
+        discordToMcFormat = Parser.color(config.getString("staff.discord-to-mc-format", ""));
         mcToDiscordFormat = config.getString("staff.mc-to-discord-format", "");
         try {
             jda = JDABuilder.createDefault(TOKEN).build();
@@ -46,7 +46,7 @@ public class DiscordManager implements EventListener {
     public void sendToMC(Member member, String message) {
         if (discordToMcFormat.isEmpty()) return;
 
-        String format = ChatColor.translateAlternateColorCodes('&', discordToMcFormat).replace("{player}", member.getEffectiveName()).replace("{message}", message);
+        String format = discordToMcFormat.replace("{player}", member.getEffectiveName()).replace("{message}", message);
         AbyssalProxy.getInstance().getProxy().getPluginManager().callEvent(new StaffMsgEvent(member, message, format));
     }
 

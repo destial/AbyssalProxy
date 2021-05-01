@@ -22,11 +22,7 @@ public class Punishment extends Event {
 
         victim = LitebansDatabase.getPlayerName(entry.getUuid());
 
-        if (entry.getExecutorName() == null || entry.getExecutorName().equalsIgnoreCase("Console")) {
-            executor = "Console";
-        } else {
-            executor = entry.getExecutorName();
-        }
+        executor = entry.getExecutorName() != null ? entry.getExecutorName() : "Console";
         reason = entry.getReason();
     }
 
