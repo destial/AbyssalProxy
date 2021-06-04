@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class ReportCommand extends Command implements TabExecutor {
     public ReportCommand(String name) {
@@ -71,8 +72,13 @@ public class ReportCommand extends Command implements TabExecutor {
             for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
                 list.add(p.getName());
             }
-            return list;
+            String current = args[0];
+            if (current.isEmpty()) return list;
+
+            return list.stream().filter(s -> s.toLowerCase().startsWith(current)).collect(Collectors.toList());
         }
-        return AbyssalProxy.getInstance().getReportManager().getDefaultReasons();
+        String current = args[1];
+        if (current.isEmpty()) return AbyssalProxy.getInstance().getReportManager().getDefaultReasons();
+        return AbyssalProxy.getInstance().getReportManager().getDefaultReasons().stream().filter(s -> s.toLowerCase().startsWith(current)).collect(Collectors.toList());
     }
 }

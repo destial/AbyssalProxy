@@ -11,6 +11,7 @@ import net.md_5.bungee.api.plugin.TabExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReportBanCommand extends Command implements TabExecutor {
     public ReportBanCommand(String name) {
@@ -36,7 +37,6 @@ public class ReportBanCommand extends Command implements TabExecutor {
 
         player.sendMessage(TextComponent.fromLegacyText(
                 Parser.color(AbyssalProxy.getInstance().getReportManager().getUserBanned().replace("{player}", target.getName()))));
-        return;
     }
 
     @Override
@@ -50,6 +50,8 @@ public class ReportBanCommand extends Command implements TabExecutor {
         for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
             list.add(p.getName());
         }
-        return list;
+        String current = args[0];
+        if (current.isEmpty()) return list;
+        return list.stream().filter(s -> s.toLowerCase().startsWith(current)).collect(Collectors.toList());
     }
 }

@@ -42,7 +42,9 @@ public final class AbyssalProxy extends Plugin {
     @Override
     public void onDisable() {
         getProxy().unregisterChannel(CHANNEL);
-        DiscordManager.getJDA().shutdown();
+        if (DiscordManager.getJDA() != null) {
+            DiscordManager.getJDA().shutdown();
+        }
         unregisterListeners();
         unregisterCommands();
         getLogger().info("Disabling Abyssal Proxy " + getVersion());

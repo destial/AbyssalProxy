@@ -1,7 +1,12 @@
 package ml.abyssal.abyssalproxy.listener;
 
 import ml.abyssal.abyssalproxy.AbyssalProxy;
-import ml.abyssal.abyssalproxy.events.*;
+import ml.abyssal.abyssalproxy.events.BanEvent;
+import ml.abyssal.abyssalproxy.events.IPBanEvent;
+import ml.abyssal.abyssalproxy.events.KickEvent;
+import ml.abyssal.abyssalproxy.events.WarnEvent;
+import ml.abyssal.abyssalproxy.events.MuteEvent;
+import ml.abyssal.abyssalproxy.events.JailEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 

@@ -97,6 +97,44 @@ public class Parser {
         return val;
     }
 
+    public static String toDate(long milliseconds) {
+        if (milliseconds <= 0) return "Forever";
+        String str = ""; long d = 0, h = 0, m = 0, s = 0;
+        if (milliseconds >= 86400000L) {
+            d = milliseconds / 86400000L;
+            str = d + (d > 1 ? " days" : " day");
+            milliseconds = milliseconds - (d * 86400000L);
+        }
+        if (milliseconds >= 3600000L) {
+            h = milliseconds / 3600000;
+            if (d != 0) {
+                str += ", " + h + (h > 1 ? " hours" : " hour");
+            } else {
+                str += h + (h > 1 ? " hours" : " hour");
+            }
+            milliseconds = milliseconds - (h * 3600000L);
+        }
+        if (milliseconds > 60000L) {
+            m = milliseconds / 60000L;
+            if (h != 0 || d != 0) {
+                str += ", " + m + (m > 1 ? " minutes" : " minute");
+            } else {
+                str += m + (m > 1 ? " minutes" : " minute");
+            }
+            milliseconds = milliseconds - (m * 60000L);
+        }
+        if (milliseconds > 1000L) {
+            s = milliseconds / 1000L;
+            if (h != 0 || d != 0 || m != 0) {
+                str += ", " + s + (s > 1 ? " seconds" : " second");
+            } else {
+                str += s + (s > 1 ? " seconds" : " second");
+            }
+        }
+
+        return str;
+    }
+
     public static String color(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }

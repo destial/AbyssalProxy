@@ -50,6 +50,7 @@ staff:
   discord-guild-id: ''
   discord-to-mc-format: '&b(D) &d{player} &8>> &d{message}'
   mc-to-discord-format: '**{player}** > {message}'
+  discord-prefix: "!"
 
 # You can use {player} to represent the player that reported, {target} to represent the reported player, {reason} to represent the reason, and {server} to represent the server
 report:

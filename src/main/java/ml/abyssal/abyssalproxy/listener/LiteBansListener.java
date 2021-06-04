@@ -3,7 +3,11 @@ package ml.abyssal.abyssalproxy.listener;
 import litebans.api.Entry;
 import litebans.api.Events;
 import ml.abyssal.abyssalproxy.AbyssalProxy;
-import ml.abyssal.abyssalproxy.events.*;
+import ml.abyssal.abyssalproxy.events.BanEvent;
+import ml.abyssal.abyssalproxy.events.IPBanEvent;
+import ml.abyssal.abyssalproxy.events.KickEvent;
+import ml.abyssal.abyssalproxy.events.WarnEvent;
+import ml.abyssal.abyssalproxy.events.MuteEvent;
 
 public class LiteBansListener extends Events.Listener {
     public LiteBansListener() {}

@@ -2,6 +2,7 @@ package ml.abyssal.abyssalproxy.managers;
 
 import ml.abyssal.abyssalproxy.AbyssalProxy;
 import ml.abyssal.abyssalproxy.events.StaffMsgEvent;
+import ml.abyssal.abyssalproxy.listener.DiscordListener;
 import ml.abyssal.abyssalproxy.utils.Parser;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -25,6 +26,7 @@ public class DiscordManager implements EventListener {
     public final String GUILD_ID;
     public final String discordToMcFormat;
     public final String mcToDiscordFormat;
+    public final String DISCORD_PREFIX;
     private static JDA jda;
     public DiscordManager() {
         Configuration config = AbyssalProxy.getInstance().getConfigManager().getConfig();
@@ -33,10 +35,12 @@ public class DiscordManager implements EventListener {
         GUILD_ID = config.getString("staff.discord-guild-id", "");
         discordToMcFormat = Parser.color(config.getString("staff.discord-to-mc-format", ""));
         mcToDiscordFormat = config.getString("staff.mc-to-discord-format", "");
+        DISCORD_PREFIX = config.getString("staff.discord-prefix", "!");
         try {
             jda = JDABuilder.createDefault(TOKEN).build();
             jda.awaitReady();
             jda.addEventListener(this);
+            jda.addEventListener(new DiscordListener());
         } catch (LoginException | InterruptedException e) {
             jda = null;
             e.printStackTrace();
